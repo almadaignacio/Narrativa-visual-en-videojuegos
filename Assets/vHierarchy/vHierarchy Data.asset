@@ -15,9 +15,33 @@ MonoBehaviour:
   sceneDatas_byGuid:
     keys:
     - 99c9720ab356a0642a771bea13969a05
+    - 87735ab276276604781bacdd77e7ba9e
     values:
     - goDatas_byGlobalId:
         keys: []
         values: []
+    - goDatas_byGlobalId:
+        keys:
+        - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-299663701-0
+        - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-12096804-0
+        - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-217610943-0
+        - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-1449046331-0
+        values:
+        - colorIndex: 0
+          iconNameOrGuid: Canvas Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: GUIText Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: GUIText Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 0
+          iconNameOrGuid: GUIText Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
   bookmarks: []
   bookmarkedScenePaths: []
