@@ -26,6 +26,7 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-12096804-0
         - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-217610943-0
         - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-1449046331-0
+        - globalObjectIdString: GlobalObjectId_V1-2-87735ab276276604781bacdd77e7ba9e-1889686177-0
         values:
         - colorIndex: 0
           iconNameOrGuid: Canvas Icon
@@ -41,6 +42,10 @@ MonoBehaviour:
           isColorRecursive: 0
         - colorIndex: 0
           iconNameOrGuid: GUIText Icon
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 4
+          iconNameOrGuid: AudioReverbZone Icon
           isIconRecursive: 0
           isColorRecursive: 0
   bookmarks: []
