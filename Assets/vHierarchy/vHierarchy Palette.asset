@@ -84,6 +84,12 @@ MonoBehaviour:
     - GUIText Icon
     - Image Icon
     - Button Icon
+    - Text Icon
+    - ShowPanels
+    enabled: 1
+  - builtinIcons: []
+    customIcons:
+    - 
     enabled: 1
   - builtinIcons: []
     customIcons: []
