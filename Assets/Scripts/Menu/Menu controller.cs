@@ -8,15 +8,21 @@ public class Menucontroller : MonoBehaviour
     public bool panelChange;
     public int indexlevel;
     public GameObject panel;
+    public bool menu;
+    
     void Update()
     {
         if (level)
         {
             ChangeLevel(indexlevel);
         }
-       
-    }
 
+        if (menu == true)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            ChangeLevel(indexlevel);
+        }
+    }
     public void ChangeLevel(int index)
     {
         SceneManager.LoadScene(index);
