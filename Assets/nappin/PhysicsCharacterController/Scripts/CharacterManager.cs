@@ -17,6 +17,7 @@ namespace PhysicsCharacterController
         public float movementThrashold = 0.01f;
         [Space(10)]
 
+
         public float dampSpeedUp = 0.2f;
         public float dampSpeedDown = 0.1f;
 
@@ -136,7 +137,7 @@ namespace PhysicsCharacterController
 
         private float coyoteJumpMultiplier = 1f;
 
-        private bool isGrounded = false;
+        public bool isGrounded = false ;
         private bool isTouchingSlope = false;
         private bool isTouchingStep = false;
         private bool isTouchingWall = false;

@@ -8,55 +8,44 @@ namespace PhysicsCharacterController
         [Header("References")]
         public CharacterManager characterManager;
         public Rigidbody rigidbodyCharacter;
-        [SerializeField] LayerMask groundMask;
-        [Space(10)]
 
         [Header("Animation specifics")]
-        public float velocityAnimationMultiplier = 1f;
-        public bool lockRotationOnWall = true;
-        public float groundCheckerThrashold = 0.4f;
-        public float climbThreshold = 0.5f;
-
+        public float fallThreshold = -0.2f;
+        public float jumpThreshold = 0.15f;
 
         private Animator anim;
-        private float originalColliderHeight;
-
-
-        /**/
-
 
         private void Awake()
         {
-            anim = this.GetComponent<Animator>();
+            anim = GetComponent<Animator>();
         }
-
-
-        private void Start()
-        {
-            originalColliderHeight = characterManager.GetOriginalColliderHeight();
-        }
-
-
         private void Update()
         {
-            anim.SetFloat("velocity", rigidbodyCharacter.linearVelocity.magnitude * velocityAnimationMultiplier);
+            bool isGrounded = characterManager.isGrounded;
+            float verticalVelocity = rigidbodyCharacter.linearVelocity.y;
 
-            anim.SetBool("isGrounded", CheckAnimationGrounded());
+            Vector3 localVelocity = transform.InverseTransformDirection(rigidbodyCharacter.linearVelocity);
+            float horizontalSpeed = new Vector3(localVelocity.x, 0, localVelocity.z).magnitude;
 
-            anim.SetBool("isJump", characterManager.GetJumping());
+            // Blend Tree
+            anim.SetFloat("moveX", localVelocity.x);
+            anim.SetFloat("moveY", localVelocity.z);
+            anim.SetBool("isGrounded", isGrounded);
 
-            anim.SetBool("isTouchWall", characterManager.GetTouchingWall());
-            if (lockRotationOnWall) characterManager.SetLockRotation(characterManager.GetTouchingWall());
+            // Estados Aéreos
+            bool isJumping = !isGrounded && verticalVelocity > jumpThreshold;
+            bool isFalling = !isGrounded && verticalVelocity < fallThreshold;
+            bool isIdleFalling = false;
 
-            anim.SetBool("isClimb", characterManager.GetTouchingWall() && rigidbodyCharacter.linearVelocity.y > climbThreshold);
+            // Solo si querés diferenciar caída vertical
+            if (isFalling)
+            {
+                isIdleFalling = horizontalSpeed <= 0.1f;
+            }
 
-            anim.SetBool("isCrouch", characterManager.GetCrouching());
-        }
-
-
-        private bool CheckAnimationGrounded()
-        {
-            return Physics.CheckSphere(characterManager.transform.position - new Vector3(0, originalColliderHeight / 2f, 0), groundCheckerThrashold, groundMask);
+            anim.SetBool("isJumping", isJumping);
+            anim.SetBool("isFalling", isFalling);
+            anim.SetBool("isIdleFalling", isIdleFalling);
         }
     }
 }

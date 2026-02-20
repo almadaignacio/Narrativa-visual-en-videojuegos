@@ -173,8 +173,43 @@ MonoBehaviour:
     - goDatas_byGlobalId:
         keys:
         - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1952359305-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1339194570-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1935613561-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1340096235-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1099574386-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-2010265889-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-6212462410201203770-1151042492
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-865669258-0
         values:
         - colorIndex: 2
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 5
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 8
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 6
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 3
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 4
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 9
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 5
           iconNameOrGuid: 
           isIconRecursive: 0
           isColorRecursive: 0
