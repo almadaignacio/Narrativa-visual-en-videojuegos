@@ -827,23 +827,23 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN
+    Android: DOTWEEN;GRASSFLOW_SRP
     EmbeddedLinux: DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
     Kepler: DOTWEEN
     LinuxHeadlessSimulation: DOTWEEN
-    Nintendo Switch: DOTWEEN
-    PS4: DOTWEEN
+    Nintendo Switch: DOTWEEN;GRASSFLOW_SRP
+    PS4: DOTWEEN;GRASSFLOW_SRP
     PS5: DOTWEEN
     QNX: DOTWEEN
     ReservedCFE: DOTWEEN
-    Standalone: DOTWEEN;UNITY_PIPELINE_URP
+    Standalone: DOTWEEN;UNITY_PIPELINE_URP;GRASSFLOW_SRP;ATMOSPHERIC_HEIGHT_FOG
     VisionOS: DOTWEEN
-    WebGL: DOTWEEN
+    WebGL: DOTWEEN;GRASSFLOW_SRP
     Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN
-    iPhone: DOTWEEN
+    XboxOne: DOTWEEN;GRASSFLOW_SRP
+    iPhone: DOTWEEN;GRASSFLOW_SRP
     tvOS: DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
