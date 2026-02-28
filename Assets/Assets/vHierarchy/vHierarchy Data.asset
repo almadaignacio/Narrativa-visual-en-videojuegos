@@ -180,6 +180,14 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-2010265889-0
         - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-6212462410201203770-1151042492
         - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-865669258-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1033762055-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1064623700-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1408102598-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-7823351807975455078-1902799460
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-4422376554719012863-1613825604
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1911487897-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-420791295-0
+        - globalObjectIdString: GlobalObjectId_V1-2-8ffeeeb14ffbec1439e3fd952c47e4b9-1539289193-0
         values:
         - colorIndex: 2
           iconNameOrGuid: 
@@ -210,6 +218,38 @@ MonoBehaviour:
           isIconRecursive: 0
           isColorRecursive: 0
         - colorIndex: 5
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 5
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 4
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 3
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 9
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 2
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 5
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 1
+          iconNameOrGuid: 
+          isIconRecursive: 0
+          isColorRecursive: 0
+        - colorIndex: 6
           iconNameOrGuid: 
           isIconRecursive: 0
           isColorRecursive: 0

@@ -19,6 +19,46 @@ MonoBehaviour:
   opacity:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &-3988786959514811970
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
+  m_Name: Tonemapping
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.Tonemapping
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
+  neutralHDRRangeReductionMode:
+    m_OverrideState: 0
+    m_Value: 2
+  acesPreset:
+    m_OverrideState: 0
+    m_Value: 3
+  hueShiftAmount:
+    m_OverrideState: 0
+    m_Value: 0
+  detectPaperWhite:
+    m_OverrideState: 0
+    m_Value: 0
+  paperWhite:
+    m_OverrideState: 0
+    m_Value: 300
+  detectBrightnessLimits:
+    m_OverrideState: 0
+    m_Value: 1
+  minNits:
+    m_OverrideState: 0
+    m_Value: 0.005
+  maxNits:
+    m_OverrideState: 0
+    m_Value: 1000
 --- !u!114 &-3731284508057267812
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -303,17 +343,8 @@ MonoBehaviour:
   m_Name: HD Volume Day
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 8711377374188185572}
-  - {fileID: 396278178000043239}
-  - {fileID: -2109818796249167647}
-  - {fileID: 7601098045396302194}
-  - {fileID: 1514152091249096790}
-  - {fileID: 8360019280306604883}
-  - {fileID: -1267043940947446326}
-  - {fileID: -7925493555633639246}
-  - {fileID: -3731284508057267812}
-  - {fileID: -2662620298707306909}
-  - {fileID: 5793971595904047505}
+  - {fileID: -3988786959514811970}
+  - {fileID: 994500777205831980}
 --- !u!114 &396278178000043239
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -333,6 +364,28 @@ MonoBehaviour:
   tint:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &994500777205831980
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.LiftGammaGain
+  active: 1
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 0.8719516, y: 1, z: 0.93458676, w: 0}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.9596101, y: 0.96970737, z: 1, w: 0.5937797}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.958168, z: 0.8326714, w: 0.37700292}
 --- !u!114 &1514152091249096790
 MonoBehaviour:
   m_ObjectHideFlags: 3

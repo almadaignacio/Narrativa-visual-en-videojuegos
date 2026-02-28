@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - BILLBOARD
+  - GF_PPLIGHTS
   - GF_SELF_SHADOW
   - GRASS_FORCES
   - GRASS_RIPPLES
@@ -83,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - dhfParamMap:
-        m_Texture: {fileID: 2800000, guid: 6ad529de9ae702548b0c67e4939a00d8, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - terrainNormalMap:
@@ -148,23 +149,23 @@ Material:
     - _UVSec: 0
     - _Use: 1
     - _ZWrite: 1
-    - _ppLights: 0
+    - _ppLights: 1
     - alphaClip: 0.1
     - alphaLock: 0
     - alphaMult: 1
     - ambientCO: 0.1
-    - ambientCOShadow: 0.2
-    - bladeHeight: 2.5
+    - ambientCOShadow: 0.39
+    - bladeHeight: 1.3
     - bladeLateralCurve: 0
     - bladeOffset: 0
-    - bladeSharp: 0.3
+    - bladeSharp: -0.18
     - bladeStiffness: 0
-    - bladeVerticalCurve: 0
-    - bladeWidth: 0.1
+    - bladeVerticalCurve: -1.02
+    - bladeWidth: 0.18
     - blendNormal: 0
     - cellSize: 0.05
-    - edgeLight: 0.5
-    - edgeLightSharp: 6
+    - edgeLight: 2.54
+    - edgeLightSharp: 11.23
     - falloff: 0.45
     - flatnessMult: 1.25
     - grassFade: 190
@@ -186,17 +187,17 @@ Material:
     - variance: 0.3
     - widthLODscale: 0.05
     - windFlutter: 0.05
-    - windMult: 1
+    - windMult: 0.51
     m_Colors:
-    - _Color: {r: 0.31680638, g: 0.3679245, b: 0.08677466, a: 1}
+    - _Color: {r: 0.07208972, g: 0.33962262, b: 0.2722582, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LOD: {r: 130, g: 1.1, b: 0, a: 0}
     - _noiseScale: {r: 1, g: 1, b: 0.7, a: 0}
     - _noiseScale2: {r: 2, g: 2, b: 1, a: 1}
     - _noiseSpeed: {r: 1.5, g: 1, b: 0.35, a: 0}
     - _noiseSpeed2: {r: 2.5, g: 2, b: 1.35, a: 1}
-    - altCol: {r: 0.1, g: 0.08833333, b: 0, a: 1}
-    - flatTint: {r: 1, g: 1, b: 1, a: 0.34509805}
+    - altCol: {r: 0.1803922, g: 0.5450981, b: 0.3411765, a: 1}
+    - flatTint: {r: 0.25, g: 0.25, b: 0.25, a: 0.34509805}
     - noiseScale: {r: 1, g: 1, b: 0.5, a: 0}
     - selfShadowScaleOffset: {r: 0.75, g: -0.75, b: 0.6, a: 0.05}
     - specTint: {r: 1, g: 1, b: 1, a: 1}
