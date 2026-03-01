@@ -6,15 +6,23 @@ public class TriggerEmissionZone : MonoBehaviour
     [Header("Renderers que deben brillar")]
     [SerializeField] private List<Renderer> renderers = new List<Renderer>();
 
+    [Header("Luces que deben encenderse")]
+    [SerializeField] private List<Light> lights = new List<Light>();
+
     [Header("Emission Settings")]
     [ColorUsage(true, true)]
     [SerializeField] private Color emissionColor = Color.white;
 
-    [SerializeField] private float maxIntensity = 2f;
+    [SerializeField] private float maxEmissionIntensity = 2f;
+
+    [Header("Light Target Intensity")]
+    [SerializeField] private float targetLightIntensity = 5f;
+
+    [Header("Fade Settings")]
     [SerializeField] private float fadeSpeed = 3f;
 
-    private float currentIntensity = 0f;
-    private float targetIntensity = 0f;
+    private float currentValue = 0f;
+    private float targetValue = 0f;
 
     private MaterialPropertyBlock propertyBlock;
     private static readonly int EmissionID = Shader.PropertyToID("_EmissionColor");
@@ -22,11 +30,9 @@ public class TriggerEmissionZone : MonoBehaviour
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
-
-        // Seguridad: aseguramos que sea trigger
         GetComponent<Collider>().isTrigger = true;
 
-        // Activamos keyword de emission en materiales compartidos
+        // Activar emisión en materiales
         foreach (var r in renderers)
         {
             if (r == null) continue;
@@ -38,52 +44,64 @@ public class TriggerEmissionZone : MonoBehaviour
             }
         }
 
-        ApplyEmission(0f);
+        // Aseguramos que las luces empiecen apagadas
+        foreach (var l in lights)
+        {
+            if (l == null) continue;
+            l.intensity = 0f;
+        }
+
+        ApplyEffects(0f);
     }
 
     private void Update()
     {
-        if (Mathf.Approximately(currentIntensity, targetIntensity))
+        if (Mathf.Approximately(currentValue, targetValue))
             return;
 
-        currentIntensity = Mathf.MoveTowards(
-            currentIntensity,
-            targetIntensity,
+        currentValue = Mathf.MoveTowards(
+            currentValue,
+            targetValue,
             fadeSpeed * Time.deltaTime
         );
 
-        ApplyEmission(currentIntensity);
+        ApplyEffects(currentValue);
     }
 
-    private void ApplyEmission(float intensity)
+    private void ApplyEffects(float value)
     {
-        Color finalColor = emissionColor * intensity;
+        // -------- EMISSION --------
+        float emissionIntensity = value * maxEmissionIntensity;
+        Color finalColor = emissionColor * emissionIntensity;
 
         foreach (var r in renderers)
         {
             if (r == null) continue;
 
             r.GetPropertyBlock(propertyBlock);
-
-            // Si el renderer tiene varios materiales
-            for (int i = 0; i < r.sharedMaterials.Length; i++)
-            {
-                propertyBlock.SetColor(EmissionID, finalColor);
-            }
-
+            propertyBlock.SetColor(EmissionID, finalColor);
             r.SetPropertyBlock(propertyBlock);
+        }
+
+        // -------- LIGHTS --------
+        float newLightIntensity = Mathf.Lerp(0f, targetLightIntensity, value);
+
+        foreach (var l in lights)
+        {
+            if (l == null) continue;
+            l.intensity = newLightIntensity;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            targetIntensity = maxIntensity;
+            targetValue = 1f;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-            targetIntensity = 0f;
+            targetValue = 0f;
     }
 }

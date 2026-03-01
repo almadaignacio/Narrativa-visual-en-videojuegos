@@ -6,55 +6,86 @@ using UnityEngine.SceneManagement;
 
 public class PauseController : MonoBehaviour
 {
-    [SerializeField] private GameObject MenuPausa;
-    bool pauseMode;
+    [SerializeField] private GameObject menuPausa;
 
-        // Start is called before the first frame update
-        void Start()
+    [Header("Audio UI")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip buttonSound;
+
+    private bool isPaused = false;
+
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Resume(); // Asegura que arranque sin pausa
+    }
+
+    //void Start()
+    //{
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
+    //    Resume(); // Asegura que arranque sin pausa
+    //}
+
+    void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            pauseMode = false;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame && pauseMode == false)
-            {
-            pauseMode = true;
-                Pausa();
-            }
-
-            else if (Keyboard.current.escapeKey.wasPressedThisFrame && pauseMode == true)
-            {
-                Renaudar();
-            pauseMode = false;
-            }
-        }
-
-        public void Pausa()
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0f;
-            MenuPausa.SetActive(true);
-            pauseMode = true;
-        }
-
-        public void Renaudar()
-        {
-            Time.timeScale = 1f;
-            MenuPausa.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            pauseMode = false;
-        }
-
-        public void Reiniciar()
-        {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        public void BackToMenu()
-        {
-            SceneManager.LoadScene(0);
+            PlayButtonSound();
+            TogglePause();
         }
     }
+
+    void TogglePause()
+    {
+        if (isPaused)
+            Resume();
+        else
+            Pause();
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+
+        Time.timeScale = 0f;
+        menuPausa.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+
+        Time.timeScale = 1f;
+        menuPausa.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void Restart()
+    {
+        PlayButtonSound();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void BackToMenu(int menuIndex)
+    {
+        PlayButtonSound();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(menuIndex);
+    }
+
+    void PlayButtonSound()
+    {
+        if (audioSource != null && buttonSound != null)
+        {
+            audioSource.PlayOneShot(buttonSound);
+        }
+    }
+}

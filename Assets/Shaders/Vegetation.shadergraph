@@ -1003,8 +1003,8 @@
     "m_ObjectId": "12b5ae9c3fd74ef9a0cb20d94343d9d2",
     "m_Title": "New Group",
     "m_Position": {
-        "x": -371.0,
-        "y": -925.0
+        "x": -370.9998779296875,
+        "y": -925.0000610351563
     }
 }
 
@@ -3595,7 +3595,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
     "m_StageCapability": 2,
-    "m_Value": 0.5,
+    "m_Value": 0.0,
     "m_DefaultValue": 0.5,
     "m_Labels": []
 }
@@ -4863,7 +4863,7 @@
         "m_Id": "269a97d3e17242459c00c305d39c3fe1"
     },
     "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
+    "m_SurfaceType": 0,
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
