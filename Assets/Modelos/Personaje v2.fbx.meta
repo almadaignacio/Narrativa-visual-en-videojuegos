@@ -34,8 +34,8 @@ ModelImporter:
       name: Idle
       takeName: RIG-ArmatureAction.001
       internalID: 6166633429379475052
-      firstFrame: 2
-      lastFrame: 75
+      firstFrame: 3
+      lastFrame: 74
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -295,7 +295,7 @@ ModelImporter:
       name: sleeping
       takeName: RIG-ArmatureAction.001
       internalID: -248143246584935591
-      firstFrame: 285
+      firstFrame: 290
       lastFrame: 540
       wrapMode: 0
       orientationOffsetY: 0
@@ -468,7 +468,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.049999997
+    globalScale: 5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
