@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PauseController : MonoBehaviour
 {
@@ -11,22 +12,26 @@ public class PauseController : MonoBehaviour
     [Header("Audio UI")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip buttonSound;
+    [SerializeField] private GameObject panelSettings;
 
     private bool isPaused = false;
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        Resume(); // Asegura que arranque sin pausa
+        Resume(); // arranca sin pausa
     }
 
-    //void Start()
-    //{
-    //    Cursor.lockState = CursorLockMode.Locked;
-    //    Cursor.visible = false;
-    //    Resume(); // Asegura que arranque sin pausa
-    //}
+    private void Start()
+    { 
+        StartCoroutine(ForceCursorLock());
+    }
+
+    IEnumerator ForceCursorLock()
+    {
+        yield return null; // espera 1 frame para que Unity inicialice todo
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     void Update()
     {
@@ -34,6 +39,17 @@ public class PauseController : MonoBehaviour
         {
             PlayButtonSound();
             TogglePause();
+            panelSettings.SetActive(false);
+        }
+
+        // 🔹 Si el juego no está pausado, aseguramos que el cursor esté bloqueado
+        if (!isPaused)
+        {
+            if (Cursor.lockState != CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 
@@ -65,6 +81,8 @@ public class PauseController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        StartCoroutine(ForceCursorLock());
     }
 
     public void Restart()
@@ -77,7 +95,8 @@ public class PauseController : MonoBehaviour
     public void BackToMenu(int menuIndex)
     {
         PlayButtonSound();
-        Time.timeScale = 1f;
+        Resume(); 
+        StartCoroutine(ForceCursorLock());
         SceneManager.LoadScene(menuIndex);
     }
 
@@ -87,5 +106,17 @@ public class PauseController : MonoBehaviour
         {
             audioSource.PlayOneShot(buttonSound);
         }
+    }
+
+    public void ShowPanel(GameObject panelUI)
+    {
+        PlayButtonSound();
+        panelUI.SetActive(true);
+    }
+
+    public void HidePanel(GameObject panelUI)
+    {
+        PlayButtonSound();
+        panelUI.SetActive(false);
     }
 }

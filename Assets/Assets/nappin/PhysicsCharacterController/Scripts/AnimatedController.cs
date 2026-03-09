@@ -19,25 +19,26 @@ namespace PhysicsCharacterController
         {
             anim = GetComponent<Animator>();
         }
+
         private void Update()
         {
             bool isGrounded = characterManager.isGrounded;
             float verticalVelocity = rigidbodyCharacter.linearVelocity.y;
 
-            Vector3 localVelocity = transform.InverseTransformDirection(rigidbodyCharacter.linearVelocity);
-            float horizontalSpeed = new Vector3(localVelocity.x, 0, localVelocity.z).magnitude;
+            // 👇 usamos el input del controller
+            Vector2 input = characterManager.input.axisInput;
+            float horizontalSpeed = input.magnitude;
 
-            // Blend Tree
-            anim.SetFloat("moveX", localVelocity.x);
-            anim.SetFloat("moveY", localVelocity.z);
+            // 👇 parámetros del Blend Tree
+            anim.SetFloat("moveX", input.x, 0.15f, Time.deltaTime);
+            anim.SetFloat("moveY", input.y, 0.15f, Time.deltaTime);
+
             anim.SetBool("isGrounded", isGrounded);
 
-            // Estados Aéreos
             bool isJumping = !isGrounded && verticalVelocity > jumpThreshold;
             bool isFalling = !isGrounded && verticalVelocity < fallThreshold;
             bool isIdleFalling = false;
 
-            // Solo si querés diferenciar caída vertical
             if (isFalling)
             {
                 isIdleFalling = horizontalSpeed <= 0.1f;

@@ -9,17 +9,30 @@ using UnityEditor;
 public class Menucontroller : MonoBehaviour
 {
     [Header("Fade Settings")]
-    public Image fadeImage;               // Imagen negra fullscreen
+    public Image fadeImage;// Imagen negra fullscreen
     public float fadeDuration = 1f;
 
     [Header("Audio Settings")]
     public AudioSource audioSource;
     public AudioClip buttonSound;
 
+    //public static Menucontroller Instance;
+
     private bool isTransitioning = false;
 
     void Awake()
     {
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
+
         // Forzar que empiece completamente negro
         if (fadeImage != null)
         {

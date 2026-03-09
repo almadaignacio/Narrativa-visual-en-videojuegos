@@ -442,14 +442,49 @@ namespace PhysicsCharacterController
             float crouchMultiplier = 1f;
             if (isCrouch) crouchMultiplier = crouchSpeedMultiplier;
 
+            // Dirección relativa a la cámara
+            Vector3 camForward = characterCamera.transform.forward;
+            Vector3 camRight = characterCamera.transform.right;
+
+            camForward.y = 0;
+            camRight.y = 0;
+
+            camForward.Normalize();
+            camRight.Normalize();
+
+            Vector3 moveDir = camForward * axisInput.y + camRight * axisInput.x;
+
             if (axisInput.magnitude > movementThrashold)
             {
-                targetAngle = Mathf.Atan2(axisInput.x, axisInput.y) * Mathf.Rad2Deg + characterCamera.transform.eulerAngles.y;
+                // Rotar SOLO cuando vamos hacia adelante
+                if (axisInput.y > 0)
+                {
+                    targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
+                }
+                // Rotación cuando retrocedemos (mirando hacia adelante)
+                else if (axisInput.y < 0)
+                {
+                    targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + 180f;
+                }
 
-                if (!sprint) rigidbody.linearVelocity = Vector3.SmoothDamp(rigidbody.linearVelocity, forward * movementSpeed * crouchMultiplier, ref currVelocity, dampSpeedUp);
-                else rigidbody.linearVelocity = Vector3.SmoothDamp(rigidbody.linearVelocity, forward * sprintSpeed * crouchMultiplier, ref currVelocity, dampSpeedUp);
+                float speed = sprint ? sprintSpeed : movementSpeed;
+
+                rigidbody.linearVelocity = Vector3.SmoothDamp(
+                    rigidbody.linearVelocity,
+                    moveDir.normalized * speed * crouchMultiplier,
+                    ref currVelocity,
+                    dampSpeedUp
+                );
             }
-            else rigidbody.linearVelocity = Vector3.SmoothDamp(rigidbody.linearVelocity, Vector3.zero * crouchMultiplier, ref currVelocity, dampSpeedDown);
+            else
+            {
+                rigidbody.linearVelocity = Vector3.SmoothDamp(
+                    rigidbody.linearVelocity,
+                    Vector3.zero,
+                    ref currVelocity,
+                    dampSpeedDown
+                );
+            }
         }
 
 

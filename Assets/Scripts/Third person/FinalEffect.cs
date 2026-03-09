@@ -35,14 +35,21 @@ public class FinalEffect : MonoBehaviour
     private LensDistortion lensDistortion;
     private ColorAdjustments colorAdjustments;
 
-    private float targetWeight = 0f;
-    private float currentWeight = 0f;
+    private float originalLens;
+    private float originalContrast;
+    private float originalSaturation;
+    private float originalVolumeWeight;
+
+    private float targetWeight;
+    private float currentWeight;
 
     private bool playerInside = false;
     private bool skyboxChanged = false;
 
     void Awake()
     {
+        volume.profile = Instantiate(volume.profile);
+
         // Guardar skybox original
         originalSkybox = RenderSettings.skybox;
 
@@ -51,15 +58,25 @@ public class FinalEffect : MonoBehaviour
 
         // Obtener overrides
         if (volume.profile.TryGet(out lensDistortion))
-            lensDistortion.intensity.value = 0f;
+        {
+            originalLens = lensDistortion.intensity.value;
+            lensDistortion.intensity.value = 0f; // empezar sin efecto
+        }
 
         if (volume.profile.TryGet(out colorAdjustments))
         {
-            colorAdjustments.contrast.value = 0f;
+            originalContrast = colorAdjustments.contrast.value;
+            originalSaturation = colorAdjustments.saturation.value;
+
+            colorAdjustments.contrast.value = 0f; // empezar normal
             colorAdjustments.saturation.value = 0f;
         }
 
-        volume.weight = 0f;
+        // Guardar weight original del volume
+        originalVolumeWeight = volume.weight;
+
+        currentWeight = volume.weight;
+        targetWeight = volume.weight; 
     }
 
     void Update()
@@ -68,12 +85,12 @@ public class FinalEffect : MonoBehaviour
         volume.weight = currentWeight;
 
         if (lensDistortion != null)
-            lensDistortion.intensity.value = Mathf.Lerp(0f, maxLensDistortion, currentWeight);
+            lensDistortion.intensity.value = Mathf.Lerp(originalLens, maxLensDistortion, currentWeight);
 
         if (colorAdjustments != null)
         {
-            colorAdjustments.contrast.value = Mathf.Lerp(0f, maxContrast, currentWeight);
-            colorAdjustments.saturation.value = Mathf.Lerp(0f, maxSaturation, currentWeight);
+            colorAdjustments.contrast.value = Mathf.Lerp(originalContrast, maxContrast, currentWeight);
+            colorAdjustments.saturation.value = Mathf.Lerp(originalSaturation, maxSaturation, currentWeight);
         }
     }
 
@@ -111,7 +128,6 @@ public class FinalEffect : MonoBehaviour
 
         float fromExposure = fromMat.HasProperty("_Exposure") ? fromMat.GetFloat("_Exposure") : 1f;
 
-        // Fade out exposure actual
         while (time < half)
         {
             float t = time / half;
@@ -120,13 +136,11 @@ public class FinalEffect : MonoBehaviour
             yield return null;
         }
 
-        // Cambiar skybox
         RenderSettings.skybox = toMat;
         DynamicGI.UpdateEnvironment();
 
         time = 0f;
 
-        // Fade in nuevo
         while (time < half)
         {
             float t = time / half;
@@ -135,7 +149,6 @@ public class FinalEffect : MonoBehaviour
             yield return null;
         }
 
-        // Restaurar valores correctos si volvemos
         if (!entering)
         {
             originalSkybox.SetFloat("_Exposure", originalExposure);
