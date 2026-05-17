@@ -35,62 +35,56 @@ public class FinalEffect : MonoBehaviour
     private LensDistortion lensDistortion;
     private ColorAdjustments colorAdjustments;
 
-    private float originalLens;
-    private float originalContrast;
-    private float originalSaturation;
-    private float originalVolumeWeight;
+    private float currentLens;
+    private float currentContrast;
+    private float currentSaturation;
 
-    private float targetWeight;
-    private float currentWeight;
+    private float targetLens;
+    private float targetContrast;
+    private float targetSaturation;
 
-    private bool playerInside = false;
     private bool skyboxChanged = false;
 
     void Awake()
     {
         volume.profile = Instantiate(volume.profile);
 
-        // Guardar skybox original
         originalSkybox = RenderSettings.skybox;
 
         if (originalSkybox.HasProperty("_Exposure"))
             originalExposure = originalSkybox.GetFloat("_Exposure");
 
-        // Obtener overrides
         if (volume.profile.TryGet(out lensDistortion))
         {
-            originalLens = lensDistortion.intensity.value;
-            lensDistortion.intensity.value = 0f; // empezar sin efecto
+            currentLens = lensDistortion.intensity.value;
+            targetLens = currentLens;
         }
 
         if (volume.profile.TryGet(out colorAdjustments))
         {
-            originalContrast = colorAdjustments.contrast.value;
-            originalSaturation = colorAdjustments.saturation.value;
+            currentContrast = colorAdjustments.contrast.value;
+            currentSaturation = colorAdjustments.saturation.value;
 
-            colorAdjustments.contrast.value = 0f; // empezar normal
-            colorAdjustments.saturation.value = 0f;
+            targetContrast = currentContrast;
+            targetSaturation = currentSaturation;
         }
-
-        // Guardar weight original del volume
-        originalVolumeWeight = volume.weight;
-
-        currentWeight = volume.weight;
-        targetWeight = volume.weight; 
     }
 
     void Update()
     {
-        currentWeight = Mathf.Lerp(currentWeight, targetWeight, Time.deltaTime * transitionSpeed);
-        volume.weight = currentWeight;
-
         if (lensDistortion != null)
-            lensDistortion.intensity.value = Mathf.Lerp(originalLens, maxLensDistortion, currentWeight);
+        {
+            currentLens = Mathf.Lerp(currentLens, targetLens, Time.deltaTime * transitionSpeed);
+            lensDistortion.intensity.value = currentLens;
+        }
 
         if (colorAdjustments != null)
         {
-            colorAdjustments.contrast.value = Mathf.Lerp(originalContrast, maxContrast, currentWeight);
-            colorAdjustments.saturation.value = Mathf.Lerp(originalSaturation, maxSaturation, currentWeight);
+            currentContrast = Mathf.Lerp(currentContrast, targetContrast, Time.deltaTime * transitionSpeed);
+            currentSaturation = Mathf.Lerp(currentSaturation, targetSaturation, Time.deltaTime * transitionSpeed);
+
+            colorAdjustments.contrast.value = currentContrast;
+            colorAdjustments.saturation.value = currentSaturation;
         }
     }
 
@@ -98,8 +92,9 @@ public class FinalEffect : MonoBehaviour
     {
         if (!other.CompareTag(playerTag)) return;
 
-        playerInside = true;
-        targetWeight = 1f;
+        targetLens = maxLensDistortion;
+        targetContrast = maxContrast;
+        targetSaturation = maxSaturation;
 
         if (!skyboxChanged)
             StartCoroutine(SkyboxBlend(true));
@@ -109,8 +104,9 @@ public class FinalEffect : MonoBehaviour
     {
         if (!other.CompareTag(playerTag)) return;
 
-        playerInside = false;
-        targetWeight = 0f;
+        targetLens = 0f;
+        targetContrast = 0f;
+        targetSaturation = 0f;
 
         if (skyboxChanged)
             StartCoroutine(SkyboxBlend(false));
@@ -156,3 +152,4 @@ public class FinalEffect : MonoBehaviour
         }
     }
 }
+

@@ -139,13 +139,7 @@ public class AtmosphereChanger : MonoBehaviour
 
         yield return StartCoroutine(RockSequence());
 
-        // 🔥 Restauramos el skybox original al finalizar todo
-        RenderSettings.skybox = originalSkyboxMaterial;
-
-        if (originalSkyboxMaterial != null && originalSkyboxMaterial.HasProperty("_Exposure"))
-            originalSkyboxMaterial.SetFloat("_Exposure", originalSkyboxExposure);
-
-        DynamicGI.UpdateEnvironment();
+        //DynamicGI.UpdateEnvironment();
     }
 
     IEnumerator ParticleRoutine()

@@ -3,6 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using PhysicsCharacterController;
 
 
 public class GameIntroController : MonoBehaviour
@@ -25,6 +26,7 @@ public class GameIntroController : MonoBehaviour
 
     [Header("Player Control")]
     [SerializeField] private MonoBehaviour physicsCharacterController;
+    [SerializeField] private AnimatedController animatedController;
     [SerializeField] private float disableDuration = 4f;
 
     [Header("Sound")]
@@ -40,10 +42,14 @@ public class GameIntroController : MonoBehaviour
 
     private List<GameObject> spawnedParticles = new List<GameObject>();
 
+
     private void Start()
     {
         if (physicsCharacterController != null)
             physicsCharacterController.enabled = false;
+
+        if (animatedController != null)
+            animatedController.enabled = false;
 
         perlin = cineCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
 
@@ -53,12 +59,26 @@ public class GameIntroController : MonoBehaviour
             originalAmplitude = perlin.AmplitudeGain;
         }
 
+        StartCoroutine(ReenablePlayer());
         StartCoroutine(IntroSequence());
     }
 
+
+    private IEnumerator ReenablePlayer()
+    {
+        yield return new WaitForSeconds(disableDuration);
+
+        if (physicsCharacterController != null)
+            physicsCharacterController.enabled = true;
+
+        if (animatedController != null)
+            animatedController.enabled = true;
+    }
+
+
     private IEnumerator IntroSequence()
     {
-        yield return StartCoroutine(FadeIn());
+        //yield return StartCoroutine(FadeIn());
         yield return StartCoroutine(CameraShake());
 
         SpawnParticles();
@@ -66,12 +86,8 @@ public class GameIntroController : MonoBehaviour
         yield return new WaitForSeconds(particlesDuration);
 
         DisableParticles();
-
-        yield return new WaitForSeconds(disableDuration);
-
-        if (physicsCharacterController != null)
-            physicsCharacterController.enabled = true;
     }
+
 
     private IEnumerator FadeIn()
     {
@@ -90,6 +106,7 @@ public class GameIntroController : MonoBehaviour
         color.a = 0f;
         fadePanel.color = color;
     }
+
 
     private IEnumerator CameraShake()
     {
@@ -121,7 +138,7 @@ public class GameIntroController : MonoBehaviour
             yield return null;
         }
 
-        // Esperar hasta que falte el tiempo del fade out para que termine el clip
+        // Esperar hasta que falte el tiempo del fade out
         if (shakeSound != null)
         {
             float waitTime = shakeSound.length - audioFadeOutDuration - audioFadeInDuration;
@@ -148,6 +165,7 @@ public class GameIntroController : MonoBehaviour
         perlin.NoiseProfile = originalProfile;
     }
 
+
     private void SpawnParticles()
     {
         foreach (var prefab in particlePrefabs)
@@ -157,6 +175,7 @@ public class GameIntroController : MonoBehaviour
         }
     }
 
+
     private void DisableParticles()
     {
         foreach (var particle in spawnedParticles)
@@ -165,5 +184,4 @@ public class GameIntroController : MonoBehaviour
                 particle.SetActive(false);
         }
     }
-
 }

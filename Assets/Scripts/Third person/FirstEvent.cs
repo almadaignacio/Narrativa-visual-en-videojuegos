@@ -55,57 +55,56 @@ public class FirstEvent : MonoBehaviour
 
     private IEnumerator TriggerSequence()
     {
-        // 🔊 Reproducir sonido
-        if (audioSource != null && triggerSound != null)
-        {
-            audioSource.clip = triggerSound;
-            audioSource.Play();
-        }
-
-        // 🔥 Activar partículas
-        foreach (ParticleSystem ps in particlesToActivate)
-        {
-            if (ps != null)
-                ps.Play();
-        }
-
-        // 🌫 Subir Fog
-        if (heightFog != null)
-        {
-            yield return StartCoroutine(LerpFog(originalFogIntensity, targetFogIntensity));
-        }
-
-        // ⏳ Mantener fog en intensidad elegida
-        yield return new WaitForSeconds(fogHoldDuration);
-
-        // 🌫 Bajar Fog nuevamente
-        if (heightFog != null)
-        {
-            yield return StartCoroutine(LerpFog(targetFogIntensity, originalFogIntensity));
-        }
-
-        // ⏳ Esperar duración partículas
-        yield return new WaitForSeconds(particlesDuration);
-
-        // 💨 Detener partículas
-        foreach (ParticleSystem ps in particlesToActivate)
-        {
-            if (ps != null)
-                ps.Stop();
-        }
-
-        // 🚫 Desactivar objetos
         foreach (GameObject obj in objectsToDisable)
         {
             if (obj != null)
                 obj.SetActive(false);
         }
 
-        // ✅ Activar otros objetos
+        //  Activar objetos 
         foreach (GameObject obj in objectsToEnable)
         {
             if (obj != null)
                 obj.SetActive(true);
+        }
+
+        //  Reproducir sonido
+        if (audioSource != null && triggerSound != null)
+        {
+            audioSource.clip = triggerSound;
+            audioSource.Play();
+        }
+
+        //  Activar partículas
+        foreach (ParticleSystem ps in particlesToActivate)
+        {
+            if (ps != null)
+                ps.Play();
+        }
+
+        //  Subir Fog
+        if (heightFog != null)
+        {
+            yield return StartCoroutine(LerpFog(originalFogIntensity, targetFogIntensity));
+        }
+
+        //  Mantener fog en intensidad elegida
+        yield return new WaitForSeconds(fogHoldDuration);
+
+        //  Bajar Fog nuevamente
+        if (heightFog != null)
+        {
+            yield return StartCoroutine(LerpFog(targetFogIntensity, originalFogIntensity));
+        }
+
+        //  Esperar duración partículas
+        yield return new WaitForSeconds(particlesDuration);
+
+        // Detener partículas
+        foreach (ParticleSystem ps in particlesToActivate)
+        {
+            if (ps != null)
+                ps.Stop();
         }
     }
 
